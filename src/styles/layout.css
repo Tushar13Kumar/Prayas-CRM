@@ -35,15 +35,13 @@ html, body {
 }
 
 
-/* DASHBOARD GRID */
-
+/* Dashboard Grid Mobile stack logic */
 .dashboard-grid {
   display: grid;
   grid-template-columns: 1fr 350px;
   gap: 24px;
   align-items: start;
 }
-
 
 /* CARD */
 
@@ -56,6 +54,8 @@ html, body {
   border: none;
 
   background: white;
+
+  overflow: hidden; /* Ye card ke corners se table bahar nahi jane dega */
 
 }
 
@@ -124,4 +124,210 @@ html, body {
 
   color: white;
 
+}
+/* Purana code rehne dein, bas ye additions karein */
+
+.app-layout {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden; /* Mobile horizontal scroll rokne ke liye */
+}
+
+.main-content {
+  flex: 1;
+  min-width: 0; /* Bootstrap grids ko collapse hone se bachata hai */
+  background: #f9fafb;
+  padding: 24px;
+  transition: 0.3s;
+}
+
+/* SIDEBAR RESPONSIVE LOGIC */
+@media (max-width: 767.98px) {
+  .sidebar-container {
+    position: fixed !important;
+    left: -250px; /* Default hidden on mobile */
+    z-index: 1050;
+    transition: 0.3s ease;
+    box-shadow: 10px 0 15px rgba(0,0,0,0.1);
+  }
+
+  .sidebar-container.show {
+    left: 0; /* Button click pe bahar aayega */
+  }
+
+  .main-content {
+    padding: 15px;
+    padding-top: 70px; /* Mobile button ke liye jagah */
+  }
+}
+
+/* Jab screen 1100px se kam ho, toh table aur form ko upar niche kar dein */
+@media (max-width: 1100px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr; /* Table full width ho jayegi */
+  }
+}
+
+/* Stat Cards (New Leads, etc.) ko mobile pe 1 line mein ya grid mein adjust karein */
+@media (max-width: 576px) {
+  .crm-card.p-4 {
+    padding: 1.2rem !important;
+  }
+  h3 {
+    font-size: 1.5rem;
+  }
+}
+
+/* Sales Agent View Specific Responsive CSS */
+
+/* Desktop par layout */
+/* .agent-sidebar {
+  width: 280px;
+  height: calc(100vh - 40px);
+  position: sticky;
+  top: 20px;
+} */
+
+.active-agent {
+  background-color: #e0e7ff !important;
+  color: #2563eb !important;
+  border-left: 4px solid #2563eb !important;
+  font-weight: bold;
+}
+
+/* Mobile Responsive Logic */
+@media (max-width: 768px) {
+  .sales-container {
+    flex-direction: column !important; /* Sidebar aur content upar-niche */
+  }
+
+  .agent-sidebar {
+  width: 280px;
+  flex-shrink: 0;
+  background: white;
+}
+
+  .agent-list-scroll {
+    display: flex !important; /* Horizontal list on mobile */
+    flex-direction: row !important;
+    overflow-x: auto !important;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    padding: 10px 0;
+    
+  }
+
+  .agent-list-scroll .list-group-item {
+    border: 1px solid #eee !important;
+    border-radius: 20px !important;
+    margin-right: 10px;
+    padding: 8px 20px !important;
+    min-width: fit-content;
+  }
+
+  .active-agent {
+    border-left: none !important;
+    background-color: #2563eb !important;
+    color: white !important;
+  }
+
+  /* Table ko mobile pe scrollable banana */
+  .table-responsive {
+    border-radius: 12px;
+  }
+
+  .table-responsive table {
+    min-width: 800px; /* Isse columns cutenge nahi, scroll honge */
+  }
+
+  /* Header adjustments */
+  header.sticky-top {
+    flex-direction: column;
+    align-items: flex-start !important;
+    gap: 15px;
+  }
+}
+
+@media (max-width:768px){
+
+  .agent-list-scroll{
+    display:flex;
+    flex-direction:row;
+    overflow-x:auto;
+    gap:10px;
+    padding:10px;
+  }
+   .agent-list-scroll .list-group-item{
+    flex:0 0 auto;
+    border-radius:20px;
+  }
+
+}
+
+.table {
+  min-width: 700px;
+}
+
+/* Recharts container fix */
+.recharts-responsive-container {
+  min-width: 0 !important; /* Bahut zaroori hai taaki chart shrink ho sake */
+}
+
+/* Sidebar behavior on mobile */
+@media (max-width: 768px) {
+  .vh-100 {
+    height: auto !important;
+  }
+  /* Agar aapne sidebar ko mobile pe dikhana hai, 
+     toh use position absolute ya fixed karein toggle ke saath */
+  
+  .card {
+    margin-bottom: 1rem;
+  }
+  /* Header adjustments */
+  header h3 {
+    font-size: 1.25rem !important;
+  }
+}
+/* Extra small screens fix */
+@media (max-width: 400px) {
+  .x-small {
+    font-size: 0.65rem !important;
+  }
+  .p-4 {
+    padding: 1rem !important;
+  }
+}
+
+/* Sidebar Default (Desktop) */
+.custom-sidebar {
+  width: 280px;
+  min-width: 280px;
+  transition: all 0.3s ease;
+  z-index: 1050;
+}
+
+/* Mobile Sidebar Logic */
+@media (max-width: 768px) {
+  .custom-sidebar {
+    position: fixed;
+    left: -280px; /* Hide sidebar */
+    top: 0;
+  }
+
+  .custom-sidebar.show {
+    left: 0; /* Show sidebar on toggle */
+  }
+
+  /* Tables need internal scroll on mobile */
+  .table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Ensure main content doesn't shrink awkwardly */
+.flex-grow-1 {
+  min-width: 0; 
 }

@@ -318,12 +318,10 @@ const Dashboard = () => {
           {/* TABLE */}
 
 
-          <div className="table-responsive">
+<div className="table-responsive" style={{ border: "none" }}>
 
-
-            <table className="table align-middle">
-
-
+<table className="table align-middle" style={{ minWidth: "600px" }}>
+{/* minWidth dene se mobile par priority aur action columns gayab nahi honge balki scroll honge */}
               <thead>
 
                 <tr>
@@ -336,11 +334,9 @@ const Dashboard = () => {
 
                   <th>Priority</th>
 
-                  <th className="text-end">
+                  <th className="text-end">Action</th>
 
-                    Action
-
-                  </th>
+                   
 
                 </tr>
 

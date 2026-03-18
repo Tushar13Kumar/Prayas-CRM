@@ -54,7 +54,7 @@ const Reports = () => {
     <div className="d-flex w-100 min-vh-100 bg-light overflow-hidden">
       
       {/* SIDEBAR */}
-      <div className="bg-white border-end d-flex flex-column shadow-sm sticky-top vh-100" style={{ width: '260px', minWidth: '260px' }}>
+      <div className="bg-white border-end d-flex flex-column shadow-sm sticky-top vh-100 d-none d-md-flex" style={{ width: '260px', minWidth: '260px' }}>
         <div className="p-4 border-bottom bg-primary text-white">
           <h5 className="mb-0 fw-bold">Anvaya CRM</h5>
           <small className="opacity-75">Reporting Engine</small>
@@ -77,117 +77,98 @@ const Reports = () => {
 
       {/* MAIN CONTENT AREA */}
   
-<div className="flex-grow-1 d-flex flex-column">
+<div className="flex-grow-1 d-flex flex-column min-w-0">
         
-        {/* HEADER - BUTTON SHIFTED TO RIGHT CORNER */}
-        <header className="bg-white border-bottom p-4 sticky-top shadow-sm w-100">
-          <div className="d-flex justify-content-between align-items-start">
-            <div>
-              <h3 className="fw-bold text-dark mb-1">🚀 System Analytics</h3>
-              <p className="text-muted small mb-0">Real-time performance metrics and lead distribution</p>
-            </div>
-            
-            <div className="d-flex align-items-center gap-4">
-              {/* Stats Summary */}
-              <div className="d-flex gap-3 me-3 d-none d-md-flex">
-                <div className="text-center">
-                  <div className="h4 mb-0 fw-bold text-primary">{totalLeads}</div>
-                  <small className="text-uppercase x-small text-muted">Total Leads</small>
-                </div>
-                <div className="vr"></div>
-                <div className="text-center">
-                  <div className="h4 mb-0 fw-bold text-success">{closedLeads}</div>
-                  <small className="text-uppercase x-small text-muted">Conversions</small>
-                </div>
-              </div>
-
-              {/* SHIFTED BUTTON: Back to Dashboard */}
-              <Link to="/" className="btn btn-outline-dark rounded-pill px-4 fw-bold shadow-sm transition">
-                Back to Dashboard
-              </Link>
-            </div>
+       {/* HEADER */}
+      <header className="bg-white border-bottom p-3 p-md-4 sticky-top shadow-sm w-100">
+        <div className="d-flex flex-column flex-md-row justify-content-between align-items-md-start gap-3">
+          <div>
+            <h3 className="fw-bold text-dark mb-1 fs-4 fs-md-2">🚀 System Analytics</h3>
+            <p className="text-muted small mb-0">Real-time performance metrics</p>
           </div>
-        </header>
+          
+          <div className="d-flex align-items-center justify-content-between gap-3">
+            {/* Mobile Stats (Chote cards) */}
+            <div className="d-flex gap-3">
+              <div className="text-center">
+                <div className="h5 mb-0 fw-bold text-primary">{totalLeads}</div>
+                <small className="x-small text-muted">Total</small>
+              </div>
+              <div className="vr"></div>
+              <div className="text-center">
+                <div className="h5 mb-0 fw-bold text-success">{closedLeads}</div>
+                <small className="x-small text-muted">Won</small>
+              </div>
+            </div>
+
+            <Link to="/" className="btn btn-sm btn-outline-dark rounded-pill px-3 fw-bold">
+              Back <span className="d-none d-sm-inline">to Dashboard</span>
+            </Link>
+          </div>
+        </div>
+      </header>
 
         {/* CHARTS GRID */}
-        <main className="p-4">
-          <div className="row g-4">
-            
-            {/* Chart 1: Pipeline vs Closed */}
-            <div className="col-xl-5 col-lg-6">
-              <div className="card border-0 shadow-sm rounded-4 h-100 p-4">
-                <h6 className="fw-bold text-dark mb-4 border-start border-4 border-primary ps-2">Pipeline vs Conversion</h6>
-                <div style={{ width: '100%', height: 320 }}>
-                  <ResponsiveContainer>
-                    <PieChart>
-                      <Pie 
-                        data={pipelineData} 
-                        cx="50%" cy="50%" 
-                        innerRadius={70} 
-                        outerRadius={100} 
-                        paddingAngle={8} 
-                        dataKey="value"
-                      >
-                        {pipelineData.map((entry, index) => (
-                          <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                        ))}
-                      </Pie>
-                      <Tooltip />
-                      <Legend verticalAlign="bottom" height={36}/>
-                    </PieChart>
-                  </ResponsiveContainer>
-                </div>
+      <main className="p-2 p-md-4">
+        <div className="row g-3 g-md-4">
+          
+          {/* Chart 1: col-12 use karein taaki mobile pe full width ho */}
+          <div className="col-12 col-lg-6 col-xl-5">
+            <div className="card border-0 shadow-sm rounded-4 h-100 p-3 p-md-4">
+              <h6 className="fw-bold text-dark mb-3">Pipeline vs Conversion</h6>
+              <div style={{ width: '100%', height: 300 }}>
+                <ResponsiveContainer width="100%" height="100%">
+                  <PieChart>
+                    <Pie data={pipelineData} cx="50%" cy="50%" innerRadius="60%" outerRadius="80%" dataKey="value">
+                      {pipelineData.map((entry, index) => <Cell key={index} fill={COLORS[index % COLORS.length]} />)}
+                    </Pie>
+                    <Tooltip />
+                    <Legend iconType="circle" wrapperStyle={{fontSize: '12px'}} />
+                  </PieChart>
+                </ResponsiveContainer>
               </div>
             </div>
-
-            {/* Chart 2: Leads by Status */}
-            <div className="col-xl-7 col-lg-6">
-              <div className="card border-0 shadow-sm rounded-4 h-100 p-4">
-                <h6 className="fw-bold text-dark mb-4 border-start border-4 border-warning ps-2">Lead Status Distribution</h6>
-                <div style={{ width: '100%', height: 320 }}>
-                  <ResponsiveContainer>
-                    <BarChart data={statusData}>
-                      <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#eee" />
-                      <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fill: '#666', fontSize: 12}} />
-                      <YAxis axisLine={false} tickLine={false} tick={{fill: '#666', fontSize: 12}} />
-                      <Tooltip cursor={{fill: '#f8f9fa'}} />
-                      <Bar dataKey="count" fill="#6f42c1" radius={[6, 6, 0, 0]} barSize={40} />
-                    </BarChart>
-                  </ResponsiveContainer>
-                </div>
-              </div>
-            </div>
-
-            {/* Chart 3: Agent Performance */}
-            <div className="col-12 mt-2">
-              <div className="card border-0 shadow-sm rounded-4 p-4">
-                <h6 className="fw-bold text-dark mb-4 border-start border-4 border-success ps-2">Leads Handled by Sales Agents</h6>
-                <div style={{ width: '100%', height: 350 }}>
-                  <ResponsiveContainer>
-                    <BarChart data={agentData} layout="vertical" margin={{ left: 40, right: 40 }}>
-                      <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="#eee" />
-                      <XAxis type="number" axisLine={false} tickLine={false} hide />
-                      <YAxis 
-                        dataKey="name" 
-                        type="category" 
-                        axisLine={false} 
-                        tickLine={false} 
-                        width={120}
-                        tick={{fill: '#333', fontWeight: 'bold'}}
-                      />
-                      <Tooltip />
-                      <Bar dataKey="leads" fill="#198754" radius={[0, 10, 10, 0]} barSize={30} label={{ position: 'right', fill: '#198754', fontWeight: 'bold' }} />
-                    </BarChart>
-                  </ResponsiveContainer>
-                </div>
-              </div>
-            </div>
-
           </div>
-        </main>
-      </div>
+
+            {/* Chart 2 */}
+          <div className="col-12 col-lg-6 col-xl-7">
+            <div className="card border-0 shadow-sm rounded-4 h-100 p-3 p-md-4">
+              <h6 className="fw-bold text-dark mb-3">Lead Status</h6>
+              <div style={{ width: '100%', height: 300 }}>
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={statusData} margin={{bottom: 20}}>
+                    <XAxis dataKey="name" tick={{fontSize: 10}} interval={0} angle={-20} textAnchor="end" />
+                    <YAxis tick={{fontSize: 12}} />
+                    <Tooltip />
+                    <Bar dataKey="count" fill="#6f42c1" radius={[4, 4, 0, 0]} />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
+          </div>
+
+           {/* Chart 3: Agent Performance */}
+          <div className="col-12">
+            <div className="card border-0 shadow-sm rounded-4 p-3 p-md-4">
+              <h6 className="fw-bold text-dark mb-3">Agent Performance</h6>
+              <div style={{ width: '100%', height: 350 }}>
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={agentData} layout="vertical" margin={{ left: -20, right: 30 }}>
+                    <XAxis type="number" hide />
+                    <YAxis dataKey="name" type="category" width={100} tick={{fontSize: 11}} />
+                    <Tooltip />
+                    <Bar dataKey="leads" fill="#198754" radius={[0, 5, 5, 0]} barSize={20} />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </main>
     </div>
-  );
+  </div>
+);
 };
 
 export default Reports;

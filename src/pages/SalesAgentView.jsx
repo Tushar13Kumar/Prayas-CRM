@@ -97,50 +97,42 @@ const SalesAgentView = () => {
   };
 
   return (
-    <div className="d-flex min-vh-100 bg-light">
-      {/* ToastContainer yahan hona zaroori hai! */}
+<div className="d-flex sales-container min-vh-100 bg-light">
+        {/* ToastContainer yahan hona zaroori hai! */}
       <ToastContainer position="top-right" theme="colored" />
 
       {/* SIDEBAR */}
-      <div className="bg-white border-end shadow-sm vh-100 sticky-top" style={{ width: '280px' }}>
-        <div className="p-4 border-bottom bg-primary text-white">
-          <h5 className="mb-0 fw-bold">Anvaya CRM</h5>
-          <small className="opacity-75">Sales Management</small>
-        </div>
-        
-        <div className="p-3 bg-light border-bottom">
-          <span className="text-uppercase x-small fw-bold text-muted">Agent List</span>
-        </div>
+      {/* // 1. Sidebar wala div replace karein */}
+<div className="agent-sidebar bg-white border-end shadow-sm">
+  <div className="p-3 border-bottom bg-primary text-white d-none d-md-block">
+    <h5 className="mb-0 fw-bold">Agents</h5>
+  </div>
+  
+  <div className="list-group list-group-flush agent-list-scroll">
+    <button
+      className={`list-group-item list-group-item-action py-3 ${selectedAgentId === "All" ? 'active-agent' : ''}`}
+      onClick={() => setSelectedAgentId("All")}
+    >
+      All Agents
+    </button>
 
-        <div className="list-group list-group-flush overflow-auto" style={{ maxHeight: 'calc(100vh - 160px)' }}>
-          <button
-            className={`list-group-item list-group-item-action py-3 px-4 border-0 ${selectedAgentId === "All" ? 'bg-primary-subtle text-primary border-start border-4 border-primary fw-bold' : ''}`}
-            onClick={() => setSelectedAgentId("All")}
-          >
-            <i className="bi bi-people-fill me-2"></i> All Agents
-          </button>
-
-          {agents.map(agent => (
-            <div key={agent._id} className="d-flex align-items-center justify-content-between pe-3 border-bottom">
-              <button
-                className={`list-group-item list-group-item-action py-3 px-4 border-0 flex-grow-1 ${selectedAgentId === agent._id ? 'bg-primary-subtle text-primary' : ''}`}
-                onClick={() => setSelectedAgentId(agent._id)}
-              >
-                <i className="bi bi-person-badge me-2"></i>{agent.name}
-              </button>
-              <i 
-                className="bi bi-trash text-danger p-2" 
-                style={{ cursor: 'pointer' }}
-                onClick={() => confirmAction(agent._id, 'agent')}
-              ></i>
-            </div>
-          ))}
-        </div>
+    {agents.map(agent => (
+      <div key={agent._id} className="d-flex align-items-center border-bottom">
+        <button
+          className={`list-group-item list-group-item-action py-3 flex-grow-1 border-0 ${selectedAgentId === agent._id ? 'active-agent' : ''}`}
+          onClick={() => setSelectedAgentId(agent._id)}
+        >
+          {agent.name}
+        </button>
+        <i className="bi bi-trash text-danger p-2 me-2" style={{ cursor: 'pointer' }} onClick={() => confirmAction(agent._id, 'agent')}></i>
       </div>
+    ))}
+  </div>
+</div>
 
       {/* MAIN CONTENT AREA */}
       <div className="flex-grow-1 overflow-auto">
-        <header className="bg-white border-bottom p-4 d-flex justify-content-between align-items-center sticky-top shadow-sm" style={{zIndex: 10}}>
+        <header className="bg-white border-bottom p-4 d-flex flex-wrap justify-content-between align-items-center sticky-top shadow-sm" style={{zIndex: 10}}>
           <div>
             <h4 className="fw-bold mb-0">Agent Performance View</h4>
             <p className="text-muted mb-0 small">
@@ -156,9 +148,9 @@ const SalesAgentView = () => {
           {/* ... (Filters Card same as before) */}
           <div className="card border-0 shadow-sm rounded-4 mb-4">
             <div className="card-body p-4">
-              <div className="row g-3 align-items-end">
-                <div className="col-md-3">
-                  <label className="form-label small fw-bold text-muted">Lead Status</label>
+              <div className="row g-3  align-items-end">
+<div className="col-12 col-md-6 col-lg-3">
+                    <label className="form-label small fw-bold text-muted">Lead Status</label>
                   <select className="form-select border-0 bg-light" value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}>
                     <option value="All">All Statuses</option>
                     <option value="New">New</option>
