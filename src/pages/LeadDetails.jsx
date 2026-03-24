@@ -30,16 +30,17 @@ const LeadDetails = () => {
   };
 
   // Lead update karne ka function
-  const handleUpdateLead = async () => {
+ const handleUpdateLead = async () => {
   try {
+    // Sirf ID nikaal lo agar object hai toh
+    const agentId = editData.salesAgent?._id || editData.salesAgent;
+
     const res = await fetch(`https://anvaya-project-backend.vercel.app/leads/${id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         ...editData,
-        // Yahan dhyan dein: Backend sirf ID expect karta hai ya pura object? 
-        // Agar ID expect karta hai toh salesAgent ko string bana kar bhejein:
-        salesAgent: typeof editData.salesAgent === 'object' ? editData.salesAgent?._id : editData.salesAgent
+        salesAgent: agentId === "" ? null : agentId // Agar unassigned hai toh null bhejo
       }),
     });
 
@@ -51,7 +52,6 @@ const LeadDetails = () => {
       setIsEditing(false);
       toast.success("Lead details updated successfully!");
     } else {
-      // Backend se aane wala error message dikhayein
       toast.error(result.error || "Update failed on server.");
     }
   } catch (error) {
@@ -120,14 +120,19 @@ const LeadDetails = () => {
           <div className="col-md-3">
             <small className="text-uppercase text-muted fw-bold d-block">Assigned Agent</small>
             {isEditing ? (
-              <select 
-                className="form-select mt-1" 
-                value={editData.salesAgent?._id || ""} 
-                onChange={(e) => setEditData({...editData, salesAgent: e.target.value})}
-              >
-                <option value="">Unassigned</option>
-                {agents?.map(a => <option key={a._id} value={a._id}>{a.name}</option>)}
-              </select>
+             <select 
+  className="form-select mt-1" 
+  // Agar salesAgent object hai toh uska _id use karo, nahi toh direct value
+  value={typeof editData.salesAgent === 'object' ? editData.salesAgent?._id : editData.salesAgent || ""} 
+  onChange={(e) => setEditData({...editData, salesAgent: e.target.value})}
+>
+  <option value="">Unassigned</option>
+  {agents?.map(a => (
+    <option key={a._id} value={a._id}>
+      {a.name}
+    </option>
+  ))}
+</select>
             ) : (
               <p className="fs-5">{lead.salesAgent?.name || "Unassigned"}</p>
             )}

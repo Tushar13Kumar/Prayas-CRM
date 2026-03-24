@@ -123,24 +123,23 @@ const Agents = () => {
                           </span>
                         </div>
                       </td>
-                      <td className="text-center">
-                        <span className="badge bg-success-subtle text-success border border-success-subtle px-3 py-2 rounded-pill small">
-                          <i className="bi bi-circle-fill me-2" style={{ fontSize: '0.5rem' }}></i>Active
-                        </span>
-                      </td>
-                      <td className="text-end pe-4">
-                        <div className="d-flex justify-content-end gap-2">
-                           <button className="btn btn-sm btn-light border rounded-circle" title="Edit Agent">
-                             <i className="bi bi-pencil-square text-secondary"></i>
-                           </button>
-                           <button 
-                            className="btn btn-sm btn-outline-danger px-4 rounded-pill fw-semibold transition shadow-sm" 
-                            onClick={() => deleteAgent(agent._id)}
-                          >
-                            <i className="bi bi-trash3 me-2"></i>Terminate
-                          </button>
-                        </div>
-                      </td>
+                    <td className="text-end pe-4">
+  <div className="d-flex justify-content-end align-items-center gap-3">
+    {/* Edit Button (Size fixed) */}
+    <button className="btn btn-outline-secondary rounded-circle p-2 shadow-sm" title="Edit Agent">
+      <i className="bi bi-pencil-square"></i>
+    </button>
+
+    {/* Terminate Button (Bada aur clear) */}
+    <button 
+      className="btn btn-danger px-4 py-2 rounded-pill fw-bold transition shadow-sm" 
+      onClick={() => deleteAgent(agent._id)}
+      style={{ minWidth: '120px' }} // Taaki button ka size fix rahe
+    >
+      <i className="bi bi-trash3 me-2"></i>Terminate
+    </button>
+  </div>
+</td>
                     </tr>
                   ))
                 ) : (
