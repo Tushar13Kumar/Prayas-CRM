@@ -7,40 +7,43 @@ import { Link } from 'react-router-dom'; // Add this import
 const Agents = () => {
   const { data: agents, loading, error, setData } = useFetch("https://anvaya-project-backend.vercel.app/agents", []);
 
-  const deleteAgent = async (id) => {
-    // 👈 2. Ye raha naya React Alert logic
-    Swal.fire({
-      title: 'Sure ho bhai?',
-      text: "Is agent ko nikalne ke baad wapas nahi la paoge!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#0d6efd', // Bootstrap primary color
-      cancelButtonColor: '#dc3545',  // Bootstrap danger color
-      confirmButtonText: 'Haan, nikal do!',
-      cancelButtonText: 'Nahi, rehne do'
-    }).then(async (result) => {
-      
-      // Agar user ne "Haan" (Confirm) dabaya
-      if (result.isConfirmed) {
-        try {
-          const res = await fetch(`https://anvaya-project-backend.vercel.app/agents/${id}`, {
-            method: "DELETE",
-          });
+ const deleteAgent = async (id) => {
+  Swal.fire({
+    title: 'Are you sure?',
+    text: "This action will permanently remove the agent from the system.", // 👈 Yahan comma missing tha pehle
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#0d6efd',
+    cancelButtonColor: '#dc3545',
+    confirmButtonText: 'Yes, Terminate',
+    cancelButtonText: 'Cancel'
+  }).then(async (result) => {
+    if (result.isConfirmed) {
+      try {
+        // 1. Pehle list se turant hata do (Optimistic Update)
+        // Isse user ko lagega ki turant delete ho gaya
+        const previousAgents = [...agents]; // Backup agar fail hua toh
+        setData(agents.filter(agent => agent._id !== id));
 
-          if (res.ok) {
-            setData(agents.filter(agent => agent._id !== id));
-            
-            // Delete hone ke baad chhota sa toast dikha do
-            toast.success("Agent ka patta saaf!"); 
-          } else {
-            toast.error("Server ne mana kar diya!");
-          }
-        } catch (err) {
-          toast.error("Network issue hai bhai!");
+        // 2. Backend ko call karo
+        const res = await fetch(`https://anvaya-project-backend.vercel.app/agents/${id}`, {
+          method: "DELETE",
+        });
+
+        if (res.ok || res.status === 204) {
+          toast.success("Agent terminated successfully!");
+        } else {
+          // Agar server mana kar de toh wapas purani list dikhao
+          setData(previousAgents);
+          toast.error("Server issue: Could not delete.");
         }
+      } catch (err) {
+        console.error("Delete error:", err);
+        toast.error("Network error, but checking database...");
       }
-    });
-  };
+    }
+  });
+};
 
   // ... baaki pura code same rahega
 
@@ -98,62 +101,69 @@ const Agents = () => {
                   <th className="text-end pe-4 border-0 text-uppercase small fw-bold" style={{ width: '20%' }}>Management Actions</th>
                 </tr>
               </thead>
-              <tbody className="bg-white">
-                {agents.length > 0 ? (
-                  agents.map(agent => (
-                    <tr key={agent._id} className="transition-all">
-                      <td className="ps-4 py-3">
-                        <div className="d-flex align-items-center">
-                          <div className="bg-primary-subtle text-primary rounded-3 d-flex align-items-center justify-content-center me-3 shadow-sm fw-bold" style={{ width: '45px', height: '45px', fontSize: '1.2rem' }}>
-                            {agent.name.charAt(0)}
-                          </div>
-                          <div>
-                            <div className="fw-bold text-dark h6 mb-0">{agent.name}</div>
-                            <div className="text-muted x-small">ID: {agent._id.slice(-8).toUpperCase()}</div>
-                          </div>
-                        </div>
-                      </td>
-                      <td>
-                        <div className="d-flex flex-column">
-                          <span className="text-dark small fw-semibold">
-                            <i className="bi bi-envelope-fill me-2 text-primary"></i>{agent.email}
-                          </span>
-                          <span className="text-muted x-small mt-1">
-                            <i className="bi bi-shield-check me-2"></i>Verified Sales Representative
-                          </span>
-                        </div>
-                      </td>
-                    <td className="text-end pe-4">
-  <div className="d-flex justify-content-end align-items-center gap-3">
-    {/* Edit Button (Size fixed) */}
-    <button className="btn btn-outline-secondary rounded-circle p-2 shadow-sm" title="Edit Agent">
-      <i className="bi bi-pencil-square"></i>
-    </button>
+             {/* // ... (Aapka baaki imports same rahega) */}
 
-    {/* Terminate Button (Bada aur clear) */}
-    <button 
-      className="btn btn-danger px-4 py-2 rounded-pill fw-bold transition shadow-sm" 
-      onClick={() => deleteAgent(agent._id)}
-      style={{ minWidth: '120px' }} // Taaki button ka size fix rahe
-    >
-      <i className="bi bi-trash3 me-2"></i>Terminate
-    </button>
-  </div>
-</td>
-                    </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td colSpan="4" className="text-center py-5">
-                      <div className="py-5">
-                        <i className="bi bi-people text-muted opacity-25" style={{ fontSize: '5rem' }}></i>
-                        <h4 className="mt-3 text-dark fw-bold">No Agents Found</h4>
-                        <p className="text-muted">The agent database is currently empty.</p>
-                      </div>
-                    </td>
-                  </tr>
-                )}
-              </tbody>
+<tbody className="bg-white">
+  {agents.length > 0 ? (
+    agents.map((agent) => (
+      <tr key={agent._id} className="transition-all">
+        {/* 1. AGENT PROFILE */}
+        <td className="ps-4 py-3">
+          <div className="d-flex align-items-center">
+            <div className="bg-primary-subtle text-primary rounded-3 d-flex align-items-center justify-content-center me-3 shadow-sm fw-bold" style={{ width: '45px', height: '45px', fontSize: '1.2rem' }}>
+              {agent.name.charAt(0)}
+            </div>
+            <div>
+              <div className="fw-bold text-dark h6 mb-0">{agent.name}</div>
+              <div className="text-muted x-small">ID: {agent._id.slice(-8).toUpperCase()}</div>
+            </div>
+          </div>
+        </td>
+
+        {/* 2. CONTACT INFORMATION */}
+        <td>
+          <div className="d-flex flex-column">
+            <span className="text-dark small fw-semibold">
+              <i className="bi bi-envelope-fill me-2 text-primary"></i>{agent.email}
+            </span>
+            <span className="text-muted x-small mt-1">
+              <i className="bi bi-shield-check me-2"></i>Verified Sales Representative
+            </span>
+          </div>
+        </td>
+
+        {/* 3. ACCOUNT STATUS (FIXED: Ab yahan status dikhega) */}
+        <td className="text-center">
+          <span className="badge rounded-pill bg-success-subtle text-success px-3 py-2 border border-success-subtle">
+            Active
+          </span>
+        </td>
+
+        {/* 4. MANAGEMENT ACTIONS (FIXED: Ab buttons sahi jagah aayenge) */}
+        <td className="text-end pe-4">
+          <div className="d-flex justify-content-end align-items-center gap-2">
+            {/* <button className="btn btn-outline-secondary rounded-circle p-2 shadow-sm" title="Edit Agent">
+              <i className="bi bi-pencil-square"></i>
+            </button> */}
+            <button 
+              className="btn btn-danger px-4 py-2 rounded-pill fw-bold transition shadow-sm" 
+              onClick={() => deleteAgent(agent._id)}
+              style={{ minWidth: '120px' }}
+            >
+              <i className="bi bi-trash3 me-2"></i>Terminate
+            </button>
+          </div>
+        </td>
+      </tr>
+    ))
+  ) : (
+    <tr>
+      <td colSpan="4" className="text-center py-5">
+         {/* No agents content */}
+      </td>
+    </tr>
+  )}
+</tbody>
             </table>
           </div>
         </div>
