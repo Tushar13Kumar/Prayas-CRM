@@ -11,7 +11,7 @@ const Reports = () => {
       <div className="d-flex justify-content-center align-items-center vh-100 w-100 bg-light">
         <div className="text-center">
           <div className="spinner-border text-primary mb-3" role="status"></div>
-          <p className="text-muted fw-bold">Ruk ja bhai, data calculate ho raha hai...</p>
+          <p className="text-muted fw-bold">wait , data is calculating....</p>
         </div>
       </div>
     );

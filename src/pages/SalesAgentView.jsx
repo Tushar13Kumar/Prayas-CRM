@@ -13,6 +13,17 @@ const SalesAgentView = () => {
   const [statusFilter, setStatusFilter] = useState("All");
   const [priorityFilter, setPriorityFilter] = useState("All");
   const [sortBy, setSortBy] = useState("Time to Close");
+  // SalesAgentView.jsx ke andar top pe:
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+
+  const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
+
+// Agent select hone par sidebar apne aap band ho jaye (mobile ke liye)
+  const handleAgentSelect = (id) => {
+  setSelectedAgentId(id);
+  setIsSidebarOpen(false); 
+};
 
   if (leadsLoading || agentsLoading) {
     return (
@@ -29,7 +40,7 @@ const SalesAgentView = () => {
     toast(
       ({ closeToast }) => (
         <div className="p-2">
-          <p className="mb-2 fw-bold">Bhai, pakka udaana hai?</p>
+          <p className="mb-2 fw-bold">are you really want delete it?</p>
           <div className="d-flex gap-2">
             <button 
               className="btn btn-sm btn-danger px-3" 
@@ -38,9 +49,9 @@ const SalesAgentView = () => {
                 closeToast();
               }}
             >
-              Haan, uda de!
+              yes , delete it!
             </button>
-            <button className="btn btn-sm btn-secondary px-3" onClick={closeToast}>Nahi</button>
+            <button className="btn btn-sm btn-secondary px-3" onClick={closeToast}>No</button>
           </div>
         </div>
       ),
@@ -102,16 +113,19 @@ const SalesAgentView = () => {
       <ToastContainer position="top-right" theme="colored" />
 
       {/* SIDEBAR */}
-      {/* // 1. Sidebar wala div replace karein */}
-<div className="agent-sidebar bg-white border-end shadow-sm">
-  <div className="p-3 border-bottom bg-primary text-white d-none d-md-block">
-    <h5 className="mb-0 fw-bold">Agents</h5>
+<div className={`agent-sidebar bg-white border-end shadow-sm ${isSidebarOpen ? 'show' : ''}`}>
+  <div className="p-3 border-bottom bg-primary text-white d-flex justify-content-between align-items-center">
+    <h5 className="mb-0 fw-bold">Agents List</h5>
+    {/* Mobile Close Button */}
+    <button className="btn text-white d-md-none" onClick={toggleSidebar}>
+      <i className="bi bi-x-lg"></i>
+    </button>
   </div>
   
   <div className="list-group list-group-flush agent-list-scroll">
     <button
       className={`list-group-item list-group-item-action py-3 ${selectedAgentId === "All" ? 'active-agent' : ''}`}
-      onClick={() => setSelectedAgentId("All")}
+      onClick={() => handleAgentSelect("All")}
     >
       All Agents
     </button>
@@ -120,7 +134,7 @@ const SalesAgentView = () => {
       <div key={agent._id} className="d-flex align-items-center border-bottom">
         <button
           className={`list-group-item list-group-item-action py-3 flex-grow-1 border-0 ${selectedAgentId === agent._id ? 'active-agent' : ''}`}
-          onClick={() => setSelectedAgentId(agent._id)}
+          onClick={() => handleAgentSelect(agent._id)}
         >
           {agent.name}
         </button>
@@ -130,19 +144,30 @@ const SalesAgentView = () => {
   </div>
 </div>
 
+{/* Overlay for Mobile (Jab sidebar khule toh background dhundla ho jaye) */}
+{isSidebarOpen && <div className="sidebar-overlay d-md-none" onClick={toggleSidebar}></div>}
+
       {/* MAIN CONTENT AREA */}
       <div className="flex-grow-1 overflow-auto">
-        <header className="bg-white border-bottom p-4 d-flex flex-wrap justify-content-between align-items-center sticky-top shadow-sm" style={{zIndex: 10}}>
-          <div>
-            <h4 className="fw-bold mb-0">Agent Performance View</h4>
-            <p className="text-muted mb-0 small">
-              Dashboard / <span className="text-primary fw-semibold">{activeAgentName}</span>
-            </p>
-          </div>
-          <Link to="/" className="btn btn-dark rounded-pill px-4">
-            <i className="bi bi-arrow-left me-2"></i>Back to Dashboard
-          </Link>
-        </header>
+       <header className="bg-white border-bottom p-3 d-flex justify-content-between align-items-center sticky-top shadow-sm">
+  <div className="d-flex align-items-center gap-3">
+    {/* Hamburger Button - Visible only on Mobile */}
+    <button className="btn btn-outline-primary d-md-none" onClick={toggleSidebar}>
+      <i className="bi bi-list fs-4">Click</i>
+    </button>
+    
+    <div>
+      <h4 className="fw-bold mb-0 fs-5">Agent Performance</h4>
+      <p className="text-muted mb-0 x-small">
+        <span className="text-primary fw-semibold">{activeAgentName}</span>
+      </p>
+    </div>
+  </div>
+  
+  <Link to="/" className="btn btn-dark rounded-pill px-3 btn-sm">
+    <i className="bi bi-arrow-left me-1"></i>Back
+  </Link>
+</header>
 
         <div className="p-4">
           {/* ... (Filters Card same as before) */}

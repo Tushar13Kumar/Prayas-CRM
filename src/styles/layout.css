@@ -331,3 +331,51 @@ html, body {
 .flex-grow-1 {
   min-width: 0; 
 }
+
+/* Sidebar Drawer Logic */
+@media (max-width: 768px) {
+  .agent-sidebar {
+    position: fixed;
+    left: -280px; /* Hidden state */
+    top: 0;
+    bottom: 0;
+    width: 280px;
+    z-index: 1100;
+    transition: 0.3s ease-in-out;
+    height: 100vh !important;
+  }
+
+  .agent-sidebar.show {
+    left: 0; /* Visible state */
+  }/* Overlay Background */
+  .sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1090;
+  }
+
+  /* Purani horizontal list band karni hai */
+  .agent-list-scroll {
+    display: block !important;
+    flex-direction: column !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+  }.sales-container {
+    flex-direction: row !important; /* Stack nahi karna, content full width rahega */
+  }
+}
+
+/* Desktop Fix */
+@media (min-width: 769px) {
+  .agent-sidebar {
+    width: 280px;
+    min-width: 280px;
+    height: 100vh;
+    position: sticky;
+    top: 0;
+  }
+}

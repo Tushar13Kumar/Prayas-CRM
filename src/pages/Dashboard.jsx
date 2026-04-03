@@ -416,7 +416,7 @@ const Dashboard = () => {
 
                       >
 
-                        Remove
+                        Delete
 
                       </button>
 

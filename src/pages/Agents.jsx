@@ -150,7 +150,7 @@ const Agents = () => {
               onClick={() => deleteAgent(agent._id)}
               style={{ minWidth: '120px' }}
             >
-              <i className="bi bi-trash3 me-2"></i>Terminate
+              <i className="bi bi-trash3 me-2"></i>Delete
             </button>
           </div>
         </td>

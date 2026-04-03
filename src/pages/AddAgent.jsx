@@ -20,7 +20,7 @@ const AddAgent = () => {
       });
 
       if (res.ok) {
-        toast.success("Mubarak ho! Naya agent team mein shamil.");
+        toast.success("congratulation! new agent is added");
         navigate("/agents"); 
       } else {
         const errorData = await res.json();
