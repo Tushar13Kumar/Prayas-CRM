@@ -79,11 +79,19 @@ const Agents = () => {
                 <div className="text-muted x-small text-uppercase fw-bold">Active Staff</div>
              </div>
              <div className="vr mx-2 d-none d-md-block"></div>
-             <button className="btn btn-primary rounded-pill px-4 shadow-sm py-2">
-{/* Change the button to a Link or wrap it */}
-<Link to="/agents/add" className="btn btn-primary rounded-pill px-4 shadow-sm py-2">
-  <i className="bi bi-person-plus-fill me-2"></i>Add New Agent
-</Link>             </button>
+             {/* FIXED BUTTON: 
+      - px-3 on mobile, px-4 on desktop
+      - Icon hamesha dikhega
+      - Text 'Add New Agent' desktop pe, 'Add' mobile pe (using d-none d-sm-inline)
+  */}
+  <Link 
+    to="/agents/add" 
+    className="btn btn-primary rounded-pill px-3 px-md-4 shadow-sm py-2 d-flex align-items-center"
+  >
+    <i className="bi bi-person-plus-fill me-md-2"></i>
+    <span className="d-none d-sm-inline">Add New Agent</span>
+    <span className="d-inline d-sm-none ms-1">Add</span>
+  </Link>
           </div>
         </div>
       </header>

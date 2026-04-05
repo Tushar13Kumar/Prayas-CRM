@@ -43,7 +43,7 @@ const LeadStatusView = () => {
           className="position-fixed top-0 start-0 w-100 h-100 bg-dark opacity-50 d-md-none" 
           style={{ zIndex: 1040 }}
           onClick={() => setShowSidebar(false)}
-        ></div>
+        > </div>
       )}
 
       {/* 1. LEFT NAVIGATION SIDEBAR */}
@@ -54,7 +54,7 @@ const LeadStatusView = () => {
             <small className="opacity-75">Status Management</small>
           </div>
           <button className="btn btn-sm text-white d-md-none" onClick={() => setShowSidebar(false)}>
-            <i className="bi bi-x-lg"></i>
+            <i className="bi bi-x-lg">Back</i>
           </button>
         </div>
         
@@ -86,7 +86,7 @@ const LeadStatusView = () => {
             <div className="d-flex align-items-center gap-3">
               {/* HAMBURGER BUTTON FOR MOBILE */}
               <button className="btn btn-primary d-md-none" onClick={() => setShowSidebar(true)}>
-                <i className="bi bi-list"></i>
+                <i className="bi bi-list">Explore</i>
               </button>
               <div>
                 <h2 className="fw-bold text-dark mb-0 fs-4 fs-md-2">Status: <span className="text-primary">{activeStatus}</span></h2>
