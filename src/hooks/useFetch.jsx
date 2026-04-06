@@ -13,6 +13,7 @@ const useFetch = (url, initialData) => {
       .catch((error) => setError(error.message))
       .finally(() => setLoading(false));
   }, [url]);
-  return { data, loading, error };
+  // Yahan setData ko add karna zaroori hai ⬇️
+  return { data, setData, loading, error };
 };
 export default useFetch;
