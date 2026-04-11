@@ -67,14 +67,19 @@ const fetchLeads = async () => {
     const data = await res.json();
     setLeads(data);
   };
+  const updateLeadInState = (updatedLead) => {
+  setLeads(prevLeads => 
+    prevLeads.map(lead => lead._id === updatedLead._id ? updatedLead : lead)
+  );
+};
 
   useEffect(() => { fetchLeads(); }, []);
 
-  return (
-    <LeadContext.Provider value={{ leads, loading, error, deleteLead, fetchLeads }}>
-      {children}
-    </LeadContext.Provider>
-  );
+ return (
+  <LeadContext.Provider value={{ leads, loading, error, deleteLead, fetchLeads, updateLeadInState }}>
+    {children}
+  </LeadContext.Provider>
+);
 };
 
 // ISKO EKDUM ALAG LINE PE RAKHO
