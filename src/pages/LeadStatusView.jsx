@@ -86,7 +86,7 @@ const LeadStatusView = () => {
             <div className="d-flex align-items-center gap-3">
               {/* HAMBURGER BUTTON FOR MOBILE */}
               <button className="btn btn-primary d-md-none" onClick={() => setShowSidebar(true)}>
-                <i className="bi bi-list">Explore</i>
+                <i className="bi bi-list">Filter By</i>
               </button>
               <div>
                 <h2 className="fw-bold text-dark mb-0 fs-4 fs-md-2">Status: <span className="text-primary">{activeStatus}</span></h2>

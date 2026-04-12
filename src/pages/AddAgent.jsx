@@ -34,7 +34,9 @@ const AddAgent = () => {
   };
 
   return (
+
     <div className="d-flex flex-column w-100 min-vh-100 bg-light">
+      <h1>Add Agent & Follow up</h1>
       <div className="p-4">
         <Link to="/agents" className="btn btn-sm btn-outline-secondary mb-3">
            <i className="bi bi-arrow-left"></i> Back to List

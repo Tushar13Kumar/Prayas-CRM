@@ -153,7 +153,7 @@ const SalesAgentView = () => {
   <div className="d-flex align-items-center gap-3">
     {/* Hamburger Button - Visible only on Mobile */}
     <button className="btn btn-outline-primary d-md-none" onClick={toggleSidebar}>
-      <i className="bi bi-list fs-4">Click</i>
+      <i className="bi bi-list fs-4">Select Agent</i>
     </button>
     
     <div>
