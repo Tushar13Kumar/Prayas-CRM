@@ -1,16 +1,184 @@
-# React + Vite
+# 🚀 Anvaya CRM
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![React](https://img.shields.io/badge/Frontend-React-blue)
+![Node.js](https://img.shields.io/badge/Backend-Node.js-green)
+![Express](https://img.shields.io/badge/API-Express-black)
+![MongoDB](https://img.shields.io/badge/Database-MongoDB-brightgreen)
+![Status](https://img.shields.io/badge/Project-Active-success)
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+A **full-stack CRM application** to manage leads, sales agents, and business workflows efficiently.
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🌐 Live Demo
 
-## Expanding the ESLint configuration
+🔗 https://anvaya-crm-kohl.vercel.app/
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## ⚡ Quick Start
+
+```bash
+git clone https://github.com/Tushar13Kumar/frontend-meetups.git
+cd frontend-meetups
+npm install
+npm run dev
+```
+
+---
+
+## 🛠️ Tech Stack
+
+### Frontend
+
+* React JS
+* React Router
+
+### Backend
+
+* Node.js
+* Express.js
+
+### Database
+
+* MongoDB
+* Mongoose
+
+### Others
+
+* Chart.js
+* REST APIs
+
+---
+
+## ✨ Features
+
+### 📊 Dashboard
+
+* Displays all leads
+* Sidebar navigation
+* Lead status overview
+* Filters and quick actions
+* Add new lead button
+
+---
+
+### 🧾 Lead Management
+
+* Create, update, delete leads
+* Lead form for adding new leads
+* Lead detail page with full information
+* Edit lead functionality
+
+---
+
+### 📋 Lead Listing
+
+* View all leads
+* Filtering using:
+
+  * Status
+  * Sales Agent
+  * Tags
+  * Source
+* Sorting:
+
+  * Priority
+  * Time to close
+* URL-based filtering
+
+---
+
+### 💬 Comments System
+
+* Add comments to leads
+* Timestamp and author tracking
+* Comments displayed on lead detail page
+
+---
+
+### 👨‍💼 Sales Agent Management
+
+* View all sales agents
+* Add new sales agents
+* Delete agents
+* Auto-update leads when agent is deleted
+
+---
+
+### 🔄 Lead Workflow
+
+New → Contacted → Qualified → Proposal Sent → Closed
+
+---
+
+### 📈 Reports & Analytics
+
+* Leads closed last week
+* Total leads in pipeline
+* Leads closed by each agent
+* Status distribution charts
+
+---
+
+### 📂 Views
+
+* Leads by Status
+* Leads by Sales Agent
+* Sorting by time to close
+
+---
+
+### ⚙️ Settings
+
+* Delete leads and agents
+* Toast messages on UI
+
+---
+
+## 🔗 API Reference
+
+### 🧾 Leads
+
+* **GET /leads** → Get all leads
+* **GET /leads/:id** → Get lead details
+* **POST /leads** → Create lead
+* **PUT /leads/:id** → Update lead
+* **PATCH /leads/:id** → Partial update
+* **DELETE /leads/:id** → Delete lead
+
+---
+
+### 👨‍💼 Agents
+
+* **GET /agents** → Get all agents
+* **POST /agents** → Create agent
+* **DELETE /agents/:id** → Delete agent
+
+---
+
+### 💬 Comments
+
+* **POST /leads/:id/comments** → Add comment
+* **GET /leads/:id/comments** → Get comments
+
+---
+
+### 📊 Reports
+
+* **GET /report/last-week** → Leads closed last week
+* **GET /report/pipeline** → Pipeline count
+
+---
+
+## 📬 Contact
+
+📧 [tusharkumar74761@gmail.com](mailto:tusharkumar74761@gmail.com)
+
+---
+
+## ⭐ Support
+
+If you like this project, give it a ⭐ on GitHub!
