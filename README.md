@@ -15,7 +15,6 @@ A **full-stack CRM application** to manage leads, sales agents, and business wor
 ## 🌐 Live Demo
 
 🔗 https://anvaya-crm-kohl.vercel.app/
-
 ---
 
 ## ⚡ Quick Start
