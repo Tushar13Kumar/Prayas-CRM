@@ -98,33 +98,7 @@ html, body {
 }
 
 
-/* SIDEBAR LINKS */
-
-.sidebar .nav-link {
-
-  border-radius: 8px;
-
-  padding: 10px;
-
-  color: #333;
-
-}
-
-
-.sidebar .nav-link:hover {
-
-  background: #f3f4f6;
-
-}
-
-
-.sidebar .nav-link.active {
-
-  background: #2563eb;
-
-  color: white;
-
-}
+/* SIDEBAR LINKS — Sidebar.jsx ke andar handle ho rahi hain (anvaya-nav-item classes) */
 /* Purana code rehne dein, bas ye additions karein */
 
 .app-layout {

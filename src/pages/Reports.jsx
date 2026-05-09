@@ -56,7 +56,7 @@ const Reports = () => {
       {/* SIDEBAR */}
       <div className="bg-white border-end d-flex flex-column shadow-sm sticky-top vh-100 d-none d-md-flex" style={{ width: '260px', minWidth: '260px' }}>
         <div className="p-4 border-bottom bg-primary text-white">
-          <h5 className="mb-0 fw-bold">Anvaya CRM</h5>
+          <h5 className="mb-0 fw-bold">Prayas CRM</h5>
           <small className="opacity-75">Reporting Engine</small>
         </div>
         <div className="p-3">
@@ -83,7 +83,7 @@ const Reports = () => {
       <header className="bg-white border-bottom p-3 p-md-4 sticky-top shadow-sm w-100">
         <div className="d-flex flex-column flex-md-row justify-content-between align-items-md-start gap-3">
           <div>
-            <h3 className="fw-bold text-dark mb-1 fs-4 fs-md-2">🚀 System Analytics</h3>
+            <h3 className="fw-bold text-dark mb-1 fs-4 fs-md-2">System Analytics</h3>
             <p className="text-muted small mb-0">Real-time performance metrics</p>
           </div>
           

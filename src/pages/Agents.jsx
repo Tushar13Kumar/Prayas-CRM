@@ -68,7 +68,7 @@ const Agents = () => {
             <h2 className="fw-bold text-dark mb-1">Sales Team Management</h2>
             <nav aria-label="breadcrumb">
               <ol className="breadcrumb mb-0">
-                <li className="breadcrumb-item small">Anvaya CRM</li>
+                <li className="breadcrumb-item small">Prayas CRM</li>
                 <li className="breadcrumb-item small active text-primary fw-semibold">All Agents</li>
               </ol>
             </nav>
@@ -179,7 +179,7 @@ const Agents = () => {
 
       {/* FOOTER: Optional, helps ground the full-screen look */}
       <footer className="bg-white border-top p-3 w-100 text-center text-muted small">
-        &copy; 2026 Anvaya CRM Sales Portal | Edge-to-Edge Interface
+        &copy; 2026 Prayas CRM Sales Portal | Edge-to-Edge Interface
       </footer>
     </div>
   );

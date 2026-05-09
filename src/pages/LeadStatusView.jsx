@@ -50,7 +50,7 @@ const LeadStatusView = () => {
       <div className={`bg-white border-end d-flex flex-column shadow-sm vh-100 custom-sidebar ${showSidebar ? 'show' : ''}`}>
         <div className="p-4 border-bottom bg-primary text-white d-flex justify-content-between align-items-center">
           <div>
-            <h5 className="mb-0 fw-bold">Anvaya CRM</h5>
+            <h5 className="mb-0 fw-bold">Prayas CRM</h5>
             <small className="opacity-75">Status Management</small>
           </div>
           <button className="btn btn-sm text-white d-md-none" onClick={() => setShowSidebar(false)}>
