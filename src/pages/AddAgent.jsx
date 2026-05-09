@@ -61,7 +61,7 @@ const AddAgent = () => {
               <input 
                 type="email" 
                 className="form-control form-control-lg shadow-sm" 
-                placeholder="agent@anvaya.com"
+                placeholder="agent@prayas.com"
                 value={email} 
                 onChange={(e) => setEmail(e.target.value)} 
                 required 
