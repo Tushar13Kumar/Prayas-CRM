@@ -1,10 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { LeadProvider } from "./context/LeadContext"; //
-import Dashboard from "./pages/Dashboard"; //   
-import Sidebar from "./components/Sidebar"; // Naya component banayenge
-import "bootstrap/dist/css/bootstrap.min.css"; //
-// Pehle wala: import LeadDetails from "../pages/LeadDetails"; (GALAT HAI)
-import LeadDetails from "./pages/LeadDetails"; // (SAHI HAI - ek dot '.' matlab current folder)
+import { LeadProvider } from "./context/LeadContext";
+import Dashboard from "./pages/Dashboard";
+import Sidebar from "./components/Sidebar";
+import LeadDetails from "./pages/LeadDetails";
 import Agents from "./pages/Agents";
 import AddAgent from "./pages/AddAgent";
 import Reports from "./pages/Reports";
@@ -14,20 +12,17 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "./styles/layout.css";
 
-
 function App() {
   return (
     <LeadProvider>
       <Router>
-       <div className="d-flex app-layout">
-
+        <div className="app-layout">
 
           {/* Sidebar */}
           <Sidebar />
 
           {/* Main Content */}
           <div className="main-content">
-
 
             <ToastContainer position="top-right" autoClose={3000} />
 
@@ -48,6 +43,5 @@ function App() {
     </LeadProvider>
   );
 }
-
 
 export default App;

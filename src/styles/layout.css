@@ -1,221 +1,94 @@
-/* MAIN LAYOUT */
+/* ═══════════════════════════════════════
+   PRAYAS CRM — layout.css
+   Koi bhi hardcoded color nahi hai yahan
+   Sab var(--variable) use karta hai
+═══════════════════════════════════════ */
 
-/* MAIN LAYOUT */
+/* BASE */
 html, body {
   height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 #root {
   height: 100%;
-  min-width: 100vw; /* Ye wali line add karni hai bas! */
+  min-width: 100vw;
 }
 
-.app-layout {
-  min-height: 100vh;
-  align-items: stretch;
-}
-
-
-/* SIDEBAR */
-
-.sidebar {
-  width: 250px;
-  min-height: 100vh;
-  background: white;
-  border-right: 1px solid #eee;
-}
-
-
-/* MAIN CONTENT */
-
-.main-content {
-  flex: 1;
-  background: #f9fafb;
-  padding: 24px;
-}
-
-
-/* Dashboard Grid Mobile stack logic */
-.dashboard-grid {
-  display: grid;
-  grid-template-columns: 1fr 350px;
-  gap: 24px;
-  align-items: start;
-}
-
-/* CARD */
-
-.crm-card {
-
-  border-radius: 12px;
-
-  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-
-  border: none;
-
-  background: white;
-
-  overflow: hidden; /* Ye card ke corners se table bahar nahi jane dega */
-
-}
-
-
-/* TABLE */
-
-.table td {
-
-  padding: 14px;
-
-}
-
-
-.table tr:hover {
-
-  background: #f9fafb;
-
-}
-
-
-/* BUTTON */
-
-.btn-primary {
-
-  padding: 5px;
-
-  font-weight: 200;
-
-  border-radius: 8px;
-
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-
-}
-
-
-.btn-primary:hover {
-
-  transform: translateY(-1px);
-
-}
-
-
-/* SIDEBAR LINKS — Sidebar.jsx ke andar handle ho rahi hain (anvaya-nav-item classes) */
-/* Purana code rehne dein, bas ye additions karein */
-
+/* APP WRAPPER */
 .app-layout {
   display: flex;
   width: 100%;
   min-height: 100vh;
-  overflow-x: hidden; /* Mobile horizontal scroll rokne ke liye */
+  overflow-x: hidden;
+  background: var(--bg);         /* dark: #0a0c12 | light: #f5f6fa */
 }
 
+/* MAIN CONTENT AREA */
 .main-content {
   flex: 1;
-  min-width: 0; /* Bootstrap grids ko collapse hone se bachata hai */
-  background: #f9fafb;
-  padding: 24px;
-  transition: 0.3s;
+  min-width: 0;
+  background: var(--bg);         /* dark: #0a0c12 | light: #f5f6fa */
+  transition: background 0.25s ease;
 }
 
-/* SIDEBAR RESPONSIVE LOGIC */
-@media (max-width: 767.98px) {
-  .sidebar-container {
-    position: fixed !important;
-    left: -250px; /* Default hidden on mobile */
-    z-index: 1050;
-    transition: 0.3s ease;
-    box-shadow: 10px 0 15px rgba(0,0,0,0.1);
-  }
-
-  .sidebar-container.show {
-    left: 0; /* Button click pe bahar aayega */
-  }
-
-  .main-content {
-    padding: 15px;
-    padding-top: 70px; /* Mobile button ke liye jagah */
-  }
-}
-
-/* Jab screen 1100px se kam ho, toh table aur form ko upar niche kar dein */
-@media (max-width: 1100px) {
-  .dashboard-grid {
-    grid-template-columns: 1fr; /* Table full width ho jayegi */
-  }
-}
-
-/* Stat Cards (New Leads, etc.) ko mobile pe 1 line mein ya grid mein adjust karein */
-@media (max-width: 576px) {
-  .crm-card.p-4 {
-    padding: 1.2rem !important;
-  }
-  h3 {
-    font-size: 1.5rem;
-  }
-}
-
-/* Sales Agent View Specific Responsive CSS */
-
-/* Desktop par layout */
-/* .agent-sidebar {
-  width: 280px;
-  height: calc(100vh - 40px);
-  position: sticky;
-  top: 20px;
-} */
-
+/* ═══════════════════════════════════════
+   SALES AGENT VIEW
+═══════════════════════════════════════ */
 .active-agent {
-  background-color: #e0e7ff !important;
-  color: #2563eb !important;
-  border-left: 4px solid #2563eb !important;
-  font-weight: bold;
+  background-color: var(--accent-dim) !important;
+  color: var(--accent) !important;
+  border-left: 4px solid var(--accent) !important;
+  font-weight: 600;
 }
 
-/* Mobile Responsive Logic */
+.agent-sidebar {
+  width: 280px;
+  min-width: 280px;
+  flex-shrink: 0;
+  background: var(--surface);
+}
+
+/* ═══════════════════════════════════════
+   RECHARTS FIX
+═══════════════════════════════════════ */
+.recharts-responsive-container {
+  min-width: 0 !important;
+}
+
+/* ═══════════════════════════════════════
+   MOBILE RESPONSIVE
+═══════════════════════════════════════ */
+@media (max-width: 767px) {
+  .main-content {
+    padding-top: 60px;
+  }
+}
+
 @media (max-width: 768px) {
   .sales-container {
-    flex-direction: column !important; /* Sidebar aur content upar-niche */
+    flex-direction: column !important;
   }
 
-  .agent-sidebar {
-  width: 280px;
-  flex-shrink: 0;
-  background: white;
-}
-
   .agent-list-scroll {
-    display: flex !important; /* Horizontal list on mobile */
+    display: flex !important;
     flex-direction: row !important;
     overflow-x: auto !important;
-    white-space: nowrap;
+    gap: 10px;
+    padding: 10px;
     -webkit-overflow-scrolling: touch;
-    padding: 10px 0;
-    
   }
 
   .agent-list-scroll .list-group-item {
-    border: 1px solid #eee !important;
-    border-radius: 20px !important;
-    margin-right: 10px;
-    padding: 8px 20px !important;
-    min-width: fit-content;
+    flex: 0 0 auto;
+    border-radius: 20px;
   }
 
   .active-agent {
     border-left: none !important;
-    background-color: #2563eb !important;
-    color: white !important;
   }
 
-  /* Table ko mobile pe scrollable banana */
-  .table-responsive {
-    border-radius: 12px;
-  }
-
-  .table-responsive table {
-    min-width: 800px; /* Isse columns cutenge nahi, scroll honge */
-  }
-
-  /* Header adjustments */
   header.sticky-top {
     flex-direction: column;
     align-items: flex-start !important;
@@ -223,127 +96,6 @@ html, body {
   }
 }
 
-@media (max-width:768px){
-
-  .agent-list-scroll{
-    display:flex;
-    flex-direction:row;
-    overflow-x:auto;
-    gap:10px;
-    padding:10px;
-  }
-   .agent-list-scroll .list-group-item{
-    flex:0 0 auto;
-    border-radius:20px;
-  }
-
-}
-
-.table {
-  min-width: 700px;
-}
-
-/* Recharts container fix */
-.recharts-responsive-container {
-  min-width: 0 !important; /* Bahut zaroori hai taaki chart shrink ho sake */
-}
-
-/* Sidebar behavior on mobile */
-@media (max-width: 768px) {
-  .vh-100 {
-    height: auto !important;
-  }
-  /* Agar aapne sidebar ko mobile pe dikhana hai, 
-     toh use position absolute ya fixed karein toggle ke saath */
-  
-  .card {
-    margin-bottom: 1rem;
-  }
-  /* Header adjustments */
-  header h3 {
-    font-size: 1.25rem !important;
-  }
-}
-/* Extra small screens fix */
-@media (max-width: 400px) {
-  .x-small {
-    font-size: 0.65rem !important;
-  }
-  .p-4 {
-    padding: 1rem !important;
-  }
-}
-
-/* Sidebar Default (Desktop) */
-.custom-sidebar {
-  width: 280px;
-  min-width: 280px;
-  transition: all 0.3s ease;
-  z-index: 1050;
-}
-
-/* Mobile Sidebar Logic */
-@media (max-width: 768px) {
-  .custom-sidebar {
-    position: fixed;
-    left: -280px; /* Hide sidebar */
-    top: 0;
-  }
-
-  .custom-sidebar.show {
-    left: 0; /* Show sidebar on toggle */
-  }
-
-  /* Tables need internal scroll on mobile */
-  .table-responsive {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-}
-
-/* Ensure main content doesn't shrink awkwardly */
-.flex-grow-1 {
-  min-width: 0; 
-}
-
-/* Sidebar Drawer Logic */
-@media (max-width: 768px) {
-  .agent-sidebar {
-    position: fixed;
-    left: -280px; /* Hidden state */
-    top: 0;
-    bottom: 0;
-    width: 280px;
-    z-index: 1100;
-    transition: 0.3s ease-in-out;
-    height: 100vh !important;
-  }
-
-  .agent-sidebar.show {
-    left: 0; /* Visible state */
-  }/* Overlay Background */
-  .sidebar-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 1090;
-  }
-
-  /* Purani horizontal list band karni hai */
-  .agent-list-scroll {
-    display: block !important;
-    flex-direction: column !important;
-    overflow-x: hidden !important;
-    overflow-y: auto !important;
-  }.sales-container {
-    flex-direction: row !important; /* Stack nahi karna, content full width rahega */
-  }
-}
-
-/* Desktop Fix */
 @media (min-width: 769px) {
   .agent-sidebar {
     width: 280px;
